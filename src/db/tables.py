@@ -1,6 +1,6 @@
-import models.user
-import models.board
-import models.task
+import core.user.model
+import core.board.model
+import core.task.model
 
 from .database import Base, engine
 

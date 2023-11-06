@@ -1,9 +1,13 @@
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 import db.tables
 from config import config, is_dev
+
+from core.user import route as UserRoute
+from core.auth import auth
 
 app = FastAPI()
 
@@ -14,6 +18,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(UserRoute.router)
+app.include_router(auth.router)
+
 
 if __name__ == "__main__":
     host = str(config["HOST"])
