@@ -1,3 +1,4 @@
+from datetime import datetime
 from pydantic import BaseModel
 from typing import TYPE_CHECKING, Optional
 
@@ -12,5 +13,5 @@ class Task(BaseModel):
     is_done: Optional[bool] = False
     board_id: Optional[str] = ""
     board: "Board" = None
-    updated_at: Optional[str] = ""
-    created_at: Optional[str] = ""
+    updated_at: Optional[datetime] = ""
+    created_at: Optional[datetime] = ""

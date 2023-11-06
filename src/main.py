@@ -7,6 +7,7 @@ import db.tables
 from config import config, is_dev
 
 from core.user import route as UserRoute
+from core.board import route as BoardRoute
 from core.auth import auth
 
 app = FastAPI()
@@ -19,8 +20,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(UserRoute.router)
 app.include_router(auth.router)
+app.include_router(UserRoute.router)
+app.include_router(BoardRoute.router)
 
 
 if __name__ == "__main__":
