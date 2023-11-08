@@ -37,6 +37,16 @@ def board_add_member(
     return BoardRepo.add_member(db, board_id, member_id, current_user.id)
 
 
+@router.delete("/remove-member")
+def board_remove_member(
+    board_id: str,
+    member_id: str,
+    db: Session = Depends(get_db),
+    current_user: schemas.User = Depends(get_cred()),
+):
+    return BoardRepo.remove_member(db, board_id, member_id, current_user.id)
+
+
 @router.post("/", response_model=schemas.BoardDetail)
 def create_board(
     req: schemas.Board,

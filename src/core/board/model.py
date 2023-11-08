@@ -19,7 +19,9 @@ class Board(Base):
     owner_id = Column(String, ForeignKey("users.id"))
     owner = relationship("User", back_populates="owned_boards")
 
-    members = relationship("BoardMember", back_populates="board")
+    members = relationship(
+        "BoardMember", back_populates="board", cascade="all, delete-orphan"
+    )
 
     tasks = relationship("Task", back_populates="board", cascade="all, delete-orphan")
 

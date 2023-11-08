@@ -1,4 +1,5 @@
 from fastapi import HTTPException
+from sqlalchemy import and_
 from sqlalchemy.orm.session import Session
 from sqlalchemy.exc import IntegrityError
 
@@ -46,6 +47,38 @@ class BoardRepo:
             db.commit()
 
             return {"detail": "New member added successfully"}
+
+        except IntegrityError as e:
+            db.rollback()
+
+            print(e)
+            raise HTTPException(status_code=500, detail="Internal server error")
+
+    def remove_member(db: Session, board_id: str, member_id: str, user_id: str):
+        board = BoardRepo.get_by_id(db, board_id)
+
+        if board.owner_id != user_id:
+            raise HTTPException(status_code=403, detail="You dont have permission")
+
+        member = (
+            db.query(model_member.BoardMember)
+            .filter(
+                and_(
+                    model_member.BoardMember.board_id == board_id,
+                    model_member.BoardMember.user_id == member_id,
+                )
+            )
+            .first()
+        )
+
+        if not member:
+            raise HTTPException(status_code=404, detail="Member not found")
+
+        try:
+            db.delete(member)
+            db.commit()
+
+            return {"detail": "Member removed successfully"}
 
         except IntegrityError as e:
             db.rollback()
