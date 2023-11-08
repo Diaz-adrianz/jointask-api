@@ -3,7 +3,7 @@ from pydantic import BaseModel
 from typing import List, TYPE_CHECKING, Optional
 
 if TYPE_CHECKING:
-    from core.board.schema import Board
+    from core.schemas import Board
 
 
 class User(BaseModel):
@@ -16,7 +16,7 @@ class User(BaseModel):
 
 class UserBoards(BaseModel):
     owned_boards: List["Board"] = []
-    boards: List["Board"] = []
+    joined_boards: List["Board"] = []
 
 
 class UserDisplay(BaseModel):

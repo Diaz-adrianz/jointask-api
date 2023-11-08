@@ -1,5 +1,6 @@
 import core.user.model
 import core.board.model
+import core.board.member.model
 import core.task.model
 
 from .database import Base, engine

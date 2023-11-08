@@ -13,7 +13,6 @@ class User(Base):
         String(36),
         primary_key=True,
         default=str(uuid.uuid4()),
-        server_default=text("uuid_generate_v4()"),
     )
     name = Column(String(255), nullable=False)
     email = Column(String(255), unique=True, nullable=False)

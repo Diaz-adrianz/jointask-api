@@ -16,10 +16,10 @@ class Priority(enum.Enum):
 class Task(Base):
     __tablename__ = "tasks"
 
-    id = Column(String(36), primary_key=True, default=str(uuid.uuid4()), server_default=text('uuid_generate_v4()'))
+    id = Column(String(36), primary_key=True, default=str(uuid.uuid4()))
     title = Column(String(255), nullable=False)
     priority = Column(Enum(Priority))
-    is_done = Column(Boolean)
+    is_done = Column(Boolean, default=False)
 
     board_id = Column(String, ForeignKey("boards.id"))
     board = relationship("Board", back_populates="tasks")

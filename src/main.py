@@ -8,6 +8,7 @@ from config import config, is_dev
 
 from core.user import route as UserRoute
 from core.board import route as BoardRoute
+from core.task import route as TaskRoute
 from core.auth import auth
 
 app = FastAPI()
@@ -23,6 +24,7 @@ app.add_middleware(
 app.include_router(auth.router)
 app.include_router(UserRoute.router)
 app.include_router(BoardRoute.router)
+app.include_router(TaskRoute.router)
 
 
 if __name__ == "__main__":
